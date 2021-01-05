@@ -5,9 +5,10 @@ import os
 import os.path
 from os import path
 
+# first argument passed by PrusaSlicer = Gcode file
 sourceFile=sys.argv[1]
 
-# Read the ENTIRE g-code file into memory
+# Read the ENTIRE Gcode file into memory
 with open(sourceFile, "r") as f:
     lines = f.readlines()
 
@@ -16,17 +17,20 @@ tempFile =  destFile+".bak"
 # if back file existe remove the old one
 if path.exists(tempFile):
     os.remove(tempFile)
+ # Save the GCode file under a .bak file
 os.rename(sourceFile,destFile+".bak")
 destFile = re.sub('\.gcode$','',sourceFile)
 destFile = destFile + '.gcode'
 
+# Rewrite the ENTIRE Gcode file
 with open(destFile, "w") as of:
     for lIndex in range(len(lines)):
         oline = lines[lIndex]
         if oline[:3] == "M73":
+            # format M117 %12 3h37m
             percent = oline.replace("M73 P","").split(" ")[0]
             total_time = int(oline.split("R")[1])
-            h, m = divmod(total_time, 60)    # heures, minutes
+            h, m = divmod(total_time, 60)    # hours, minutes
             total_time_string = " {:d}h{:d}m\n".format( int(h), int(m))
             M117_code = "M117 %" + percent
             tempLine = M117_code + total_time_string
