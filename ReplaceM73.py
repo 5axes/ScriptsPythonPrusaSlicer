@@ -5,7 +5,7 @@ import os
 import os.path
 from os import path
 
-# Need to add : ;LAYER_COUNT:{total_layer_count}
+# Need to add : ;LAYER_COUNT:[total_layer_count]
 # in the Prusa Slicer Initial GCode 
 
 # first argument passed by PrusaSlicer = Gcode file
@@ -42,7 +42,7 @@ with open(destFile, "w") as of:
             percent = oline.replace("M73 P","").split(" ")[0]
             total_time = int(oline.split("R")[1])
             h, m = divmod(total_time, 60)    # hours, minutes
-            total_time_string = " {:d}h{:d}m\n".format( int(h), int(m))
+            total_time_string = " {:d}h{:d}\n".format( int(h), int(m))
             if total_layer_count > 0 :
                 M117_code = "M117 ({:d}/{:d}) %".format( int(layer_num), int(total_layer_count))
             else:
