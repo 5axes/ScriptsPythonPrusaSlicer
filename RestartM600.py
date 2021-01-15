@@ -39,12 +39,21 @@ with open(destFile, "w") as of:
         
             if oline[:4] == "M600":
                 write_line = True
-                # GET PRUSASLICER ENVIRONEMENT VARIABLE
-                # result = environ.get('SLIC3R_MAX_PRINT_HEIGHT')
-                    
+
                 line_w = ";RESTART_POSITION Z= {:.3f}\n".format( float(current_z))
                 of.write(line_w)
-                line_w = "G1 Z{:.3f} F{:.1f}\n".format( float(current_z),1500)
+                
+                line_w = "G92 E0\n"
+                of.write(line_w)
+                
+                # GET PRUSASLICER ENVIRONEMENT VARIABLE
+                retract_len = environ.get('SLIC3R_RETRACT_LENGTH')
+                deretract_speed = environ.get('SLIC3R_DERETRACT_SPEED')
+                f_speed = environ.get('SLIC3R_FIRST_LAYER_SPEED')
+                line_w = "G1 E{:.3f} F{:.1f}\n".format(-float(retract_len),float(deretract_speed)*60)
+                of.write(line_w)
+
+                line_w = "G1 Z{:.3f} F{:.1f}\n".format( float(current_z),float(f_speed)*60)
                 of.write(line_w)
 
 of.close()
