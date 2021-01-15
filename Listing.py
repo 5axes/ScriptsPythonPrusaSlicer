@@ -18,6 +18,7 @@ with open(sourceFile, "r") as f:
     coordMaxX = 0.0
     coordMinY = 9999.9
     coordMaxY = 0.0
+    coordMaxZ = 0.0
     currLine = 1
     parsing = False
 
@@ -34,11 +35,9 @@ for line in lines:
         # Track extruder movement ranges
         if not re.search(";", comment):
             # Limit track to print movements, avoid start and end gcode blocks
-            if re.search("move to first skirt point", comment):
-                #if not parsing:
-                #    print("Start extruder movement parsing at line %d with %s" % (currLine, comment))
+            if re.search("LAYER_CHANGE", comment):
                 parsing = True
-            if re.search("PURGING FINISHED", comment):
+            if re.search("END gcode for filament", comment):
                 #print("Stop extruder movement parsing at line %d with %s" % (currLine, comment))
                 parsing = False
         if parsing:
@@ -57,7 +56,12 @@ for line in lines:
                     coordMinY = val
                 if(val > coordMaxY):
                     coordMaxY = val
-
+            stringMatch = re.search ('^G[01].*Z([0-9.]+)', command)
+            if stringMatch:
+                val = float(stringMatch.group(1))
+                if(val > coordMaxZ):
+                    coordMaxZ = val
+                    
         # Include files
         includeFile = re.search('#INCLUDE\s+(.*)', comment)
         #if includeFile:
@@ -134,7 +138,8 @@ with open(destFile, "w") as of:
     of.write('; Maximum X = '+ str(coordMaxX)+'\n')
     of.write('; Minimum Y = '+ str(coordMinY)+'\n')
     of.write('; Maximum Y = '+ str(coordMaxY)+'\n')
-    for lIndex in xrange(len(lines)):
+    of.write('; Maximum Z = '+ str(coordMaxZ)+'\n')
+    for lIndex in range(len(lines)):
         oline = lines[lIndex]
         #if ("G0" in line or "G1" in line) and ("E" in line) :
         #    line = re.sub("E","B",line)
