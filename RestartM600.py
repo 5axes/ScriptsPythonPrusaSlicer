@@ -4,7 +4,7 @@ import re
 import os
 import os.path
 from os import path
-
+from os import environ
 
 # first argument passed by PrusaSlicer = Gcode file
 sourceFile=sys.argv[1]
@@ -39,6 +39,9 @@ with open(destFile, "w") as of:
         
             if oline[:4] == "M600":
                 write_line = True
+                # GET PRUSASLICER ENVIRONEMENT VARIABLE
+                # result = environ.get('SLIC3R_MAX_PRINT_HEIGHT')
+                    
                 line_w = ";RESTART_POSITION Z= {:.3f}\n".format( float(current_z))
                 of.write(line_w)
                 line_w = "G1 Z{:.3f} F{:.1f}\n".format( float(current_z),1500)
