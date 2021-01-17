@@ -19,10 +19,14 @@ destFile = destFile + '_restart.gcode'
 
 write_line = False
 current_z = 0
-valid_code = ['M106', 'M107', 'M201','M203','M204','M205','M104','M140','M190', 'M109', 'M82', 'M83', 'G90', 'G91', 'G21', 'G20', 'G29']
+valid_code = ['M106', 'M107', 'M201','M203','M204','M205','M104','M140','M190', 'M109', 'M82', 'M83', 'G90', 'G91', 'G21', 'G20']
 
 # Rewrite the ENTIRE Gcode file
 with open(destFile, "w") as of:
+    # Write first line
+    oline = lines[0]
+    of.write(oline)
+    
     for lIndex in range(len(lines)):
         oline = lines[lIndex]
 
@@ -42,14 +46,22 @@ with open(destFile, "w") as of:
 
                 line_w = ";RESTART_POSITION Z= {:.3f}\n".format( float(current_z))
                 of.write(line_w)
-                
-                line_w = "G92 E0\n"
-                of.write(line_w)
+                of.write("G28 X0\n")
+                of.write("G28 Y0\n")
                 
                 # GET PRUSASLICER ENVIRONEMENT VARIABLE
                 retract_len = environ.get('SLIC3R_RETRACT_LENGTH')
                 deretract_speed = environ.get('SLIC3R_DERETRACT_SPEED')
                 f_speed = environ.get('SLIC3R_FIRST_LAYER_SPEED')
+                y_maxi = 250 # environ.get('SLIC3R_RECT_SIZE')
+                line_w = "G1 Y{:.3f} F{:.1f}\n".format(float(y_maxi),float(f_speed)*60)
+                of.write(line_w)
+                 
+                of.write("G28 Z0\n")
+                
+                line_w = "G92 E0\n"
+                of.write(line_w)
+                
                 line_w = "G1 E{:.3f} F{:.1f}\n".format(-float(retract_len),float(deretract_speed)*60)
                 of.write(line_w)
 
