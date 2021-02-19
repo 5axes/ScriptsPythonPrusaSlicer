@@ -1,5 +1,20 @@
 # ScriptsPythonPrusaSlicer
-Sample pythton script for PrusaSlicer
+Sample pythton scripts for PrusaSlicer
+
+# Installation instructions
+
+### 1. Install python and remember the installation directory 
+This version was tested with python 3.8 (32 bits).
+You can find a version of the Python distribution and the development environment : https://www.python.org/downloads/
+
+### 2. Copy the scripts in a short path storage location
+
+### 3. Configuration in PrusaSlicer 
+Go to: `Print settings` > `Output options` > `Post-processing scripts`
+
+### With Python 3.x installed:
+Add line: `"[python directory]\python.exe"  "[script directory]\ReplaceM73.py";`
+
 
 ReplaceM73.py
 --
