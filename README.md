@@ -10,7 +10,7 @@ You can find a version of the Python distribution and the development environmen
 ### 2. Copy the scripts in a short path storage location
 
 ### 3. Configuration in PrusaSlicer 
-Go to: `Print settings` > `Output options` > `Post-processing scripts`
+Go to: `Print Settings` > `Output options` > `Post-processing scripts`
 
 ### With Python 3.x installed:
 Add line: `"[python directory]\python.exe"  "[script directory]\ReplaceM73.py";`
