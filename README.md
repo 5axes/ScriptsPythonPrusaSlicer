@@ -25,6 +25,17 @@ Replace the M73 P R instruction into a M117 line for non Prusa MK3 printer. In o
 
 In the Prusa Slicer or SuperSlicer Initial G-Code 
 
+ExternalContourAcceleration.py
+--
+
+Replace the M204 Pxxx instruction for External contour, in order to use a specific Acceleration value for external contour. **Perimeter_acceleration (Perimeter accelerations)** must be define in the print profile ( Speed - Acceleration controle)
+
+Detect in the G-Code 
+`;TYPE:External perimeter`
+    
+and then change the value set in the python code by :
+`M204_code = "M204 P600\n"`
+
 
 RestartM600.py
 --
