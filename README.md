@@ -21,7 +21,7 @@ ReplaceM73.py
 
 Replace the M73 P R instruction into a M117 line for non Prusa MK3 printer. In order to get also the Total number of layer you must add the code :
 
-  ';LAYER_COUNT:[total_layer_count]'
+    ';LAYER_COUNT:[total_layer_count]'
 
 In the Prusa Slicer or SuperSlicer Initial G-Code 
 
