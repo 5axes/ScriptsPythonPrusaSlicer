@@ -54,3 +54,9 @@ with open(destFile, "w") as of:
             of.write(oline)
 of.close()
 f.close()
+
+# delete the .bak 
+if path.exists(tempFile):
+    os.remove(tempFile)
+ 
+ 
