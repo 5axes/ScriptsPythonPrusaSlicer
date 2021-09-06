@@ -11,7 +11,7 @@ from os import path
 
 # first argument passed by PrusaSlicer = Gcode file
 sourceFile = sys.argv[1]
-# Modification pour PrusaSlicer 2.4.0
+# Modification from PrusaSlicer 2.4.0
 destFile = os.getenv('SLIC3R_PP_OUTPUT_NAME')
 #ctypes.windll.user32.MessageBoxW(0, destFile, "Debug info", 1)
 
