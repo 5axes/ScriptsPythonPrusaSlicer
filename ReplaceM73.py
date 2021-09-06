@@ -20,7 +20,8 @@ tempFile =  destFile+".bak"
 # if back file existe remove the old one
 if path.exists(tempFile):
     os.remove(tempFile)
- # Save the GCode file under a .bak file
+
+# Save the GCode file under a .bak file
 os.rename(sourceFile,destFile+".bak")
 destFile = re.sub('\.gcode$','',sourceFile)
 destFile = destFile + '.gcode'
