@@ -34,7 +34,9 @@ with open(destFile, "w") as of:
             total_layer_count = int(oline.split(":")[1])
         if oline[:13] == ";LAYER_CHANGE":
             layer_num += 1
-        if oline[:3] == "M73":
+        # Format M73 Pxx Rxx
+        # Extension 2.4 M73 Qxx Sxx for stealth (silent) printer mode : Not supported 
+        if oline[:5] == "M73 P":
             # format M117 %12 3h37m
             percent = oline.replace("M73 P","").split(" ")[0]
             total_time = int(oline.split("R")[1])
