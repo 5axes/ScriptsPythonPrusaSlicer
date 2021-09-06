@@ -16,14 +16,14 @@ Go to: `Print Settings` > `Output options` > `Post-processing scripts`
 Add line: `"[python directory]\python.exe"  "[script directory]\ReplaceM73.py";`
 
 
-ReplaceM73.py
+ReplaceM73.py & ReplaceM73New.py
 --
 
 Replace the M73 P R instruction into a M117 line for non Prusa MK3 printer. In order to get also the Total number of layer you must add the code :
 
     ';LAYER_COUNT:[total_layer_count]'
 
-In the Prusa Slicer or SuperSlicer Initial G-Code 
+In the Prusa Slicer or SuperSlicer Initial G-Code. Note the ReplaceM73New.py is a modification of the previous ***ReplaceM73.py*** script to be compatible with the 2.4 release of PrusaSlicer.  
 
 ExternalContourAcceleration.py
 --
