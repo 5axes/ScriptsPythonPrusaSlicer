@@ -6,6 +6,7 @@ import os.path
 #import ctypes
 from os import path
 
+# New release for PrusaSlicer 2.4
 # Need to add : ;LAYER_COUNT:[total_layer_count]
 # in the Prusa Slicer Initial GCode 
 
