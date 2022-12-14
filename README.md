@@ -1,5 +1,5 @@
 # ScriptsPythonPrusaSlicer
-Sample pythton scripts for PrusaSlicer or SuperSlicer
+Sample python scripts for PrusaSlicer or SuperSlicer
 
 # Installation instructions
 
